@@ -52,9 +52,8 @@ function renderFavoriteList(listArrayFavorite) {
     favorite.innerHTML += `<li class= "li-coctel"> 
 <section>
 <article class="brewCoctel js-brewCoctel" id="${coctel.idDrink}">
-<h3 class="coctel_title">${coctel.strDrink}</h3>
-<i class="fa-regular js-fa-regular fa-lemon" id=${coctel.idDrink}></i>
-<img src ="${coctel.strDrinkThumb}" alt="foto de cóctel">
+<h3 class="coctel_title">${coctel.strDrink}<i class="fa-regular js-fa-regular fa-lemon" id=${coctel.idDrink}></i></h3>
+<img class="imgcoctel" src ="${coctel.strDrinkThumb}" alt="foto de cóctel">
 </article>
 </section>
 </li>`;
@@ -73,7 +72,7 @@ function renderCoctel(coctel) {
 <section>
 <article class="brewCoctel js-brewCoctel" id="${coctel.idDrink}">
 <h3 class="coctel_title">${coctel.strDrink}</h3>
-<img src ="${coctel.strDrinkThumb}" alt="foto de cóctel">
+<img class="imgcoctel" src ="${coctel.strDrinkThumb}" alt="foto de cóctel">
 </article>
 </section>
 
@@ -97,11 +96,11 @@ function handleClickSearch(ev) {
 }
 
 //addEventListener del li
-function handleClickli(ev) {
-  console.log(ev.currentTarget.id);
+function handleClickli(event) {
+  console.log(event.currentTarget.id);
 
   //Buscar con ese id en el listado de cocteles que coctel tiene el id del curren target, lo hacemos con un find (devuelve el objeto)
-  const idSelected = ev.currentTarget.id;
+  const idSelected = event.currentTarget.id;
 
   //find : devuelve el primer elemento que cumpla una condición // const de for =coctel
   const selectedCoctel = listArrayCoctel.find(
@@ -116,12 +115,13 @@ function handleClickli(ev) {
 
   //Comprobar si ya existe el favorito
   if (indexCoctel === -1) {
-    ev.currentTarget.classList.add('selected');
+    event.currentTarget.classList.add('selected');
     //no está en el listado de favoritos
     //La guardo en el listado de favoritos: push
     listArrayFavorite.push(selectedCoctel);
+    //event.currentTarget.classList.add('title-drink');
   } else {
-    ev.currentTarget.classList.remove('selected');
+    event.currentTarget.classList.remove('selected');
     //si está en el listado de favoritos eliminarlo
     //splice: elimina un elemento a partir de una posición
     listArrayFavorite.splice(indexCoctel, 1);
