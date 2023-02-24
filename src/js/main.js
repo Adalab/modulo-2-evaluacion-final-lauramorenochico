@@ -53,7 +53,7 @@ function renderFavoriteList(listArrayFavorite) {
 
 //pintar el listado para que traiga de vuelta las margaritas, en ul-list
 //variable coctel del for
-//renderCoctel-lista de obj con 3 datos como queremos que sea cada uno de los objetos
+
 function renderCoctel(coctel) {
   let html=`<li> 
 <article class="brewCoctel js-brewCoctel" id="${coctel.idDrink}">
@@ -81,8 +81,6 @@ function handleClickSearch (ev) {
 //addEventListener del li
 function handleClickli (ev) {
   console.log (ev.currentTarget.id);
-  //'selected' para que el toggle quite y añada
-  ev.currentTarget.classList.toggle('selected');
 
   //Buscar con ese id en el listado de cocteles que coctel tiene el id del curren target, lo hacemos con un find (devuelve el objeto)
   const idSelected = ev.currentTarget.id;
@@ -96,10 +94,12 @@ function handleClickli (ev) {
 
   //Comprobar si ya existe el favorito
   if (indexCoctel === -1) {
-  //no está en el listado de favoritos
-  //La guardo en el listado de favoritos: push
+    ev.currentTarget.classList.add('selected');
+    //no está en el listado de favoritos
+    //La guardo en el listado de favoritos: push
     listArrayFavorite.push(selectedCoctel);
   } else {
+    ev.currentTarget.classList.remove('selected');
     //si está en el listado de favoritos eliminarlo
     //splice: elimina un elemento a partir de una posición
     listArrayFavorite.splice(indexCoctel, 1);
