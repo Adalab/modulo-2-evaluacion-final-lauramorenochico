@@ -9,6 +9,7 @@ const favorite = document.querySelector('.js-favorite');
 const btnX = document.querySelector('.js-btnX');
 
 
+
 //creo const url para que sea más manejable
 let url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita';
 
@@ -39,9 +40,9 @@ function renderCoctelList(listArrayCoctel) {
   for (const coctel of listArrayCoctel) {
     listMenu.innerHTML += renderCoctel(coctel);
 
-    }
-    addEventToCoctel();
   }
+  addEventToCoctel();
+}
 
 
 //Pinta todos los elementos favoritos de la lista, uso la contante de ul-favorite
@@ -51,16 +52,18 @@ function renderFavoriteList(listArrayFavorite) {
     favorite.innerHTML += `<li class= "li-coctel"> 
 <section>
 <article class="brewCoctel js-brewCoctel" id="${coctel.idDrink}">
-<h3 class="coctel_title">${coctel.strDrink}<i class="fa-regular fa-lemon"></i></h3>
+<h3 class="coctel_title">${coctel.strDrink}</h3>
+<i class="fa-regular js-fa-regular fa-lemon" id=${coctel.idDrink}></i>
 <img src ="${coctel.strDrinkThumb}" alt="foto de cóctel">
 </article>
 </section>
-<input type="button" class=" btnX js-btnX" value="X">
 </li>`;
   }
 
+  removeToFavorite();
   localStorage.setItem('drinks', JSON.stringify(listArrayFavorite));
 }
+
 
 //pintar el listado para que traiga de vuelta las margaritas, en ul-list
 //variable coctel del for
@@ -73,7 +76,7 @@ function renderCoctel(coctel) {
 <img src ="${coctel.strDrinkThumb}" alt="foto de cóctel">
 </article>
 </section>
-<input hidden type="button" class=" btnX js-btnX" value="X">
+
 </li>`;
 
   return html;
@@ -128,11 +131,16 @@ function handleClickli(ev) {
 }
 
 //funcion dentro evento: para seleccionar un li saber a qué paleta estoy haciendo click
-function addEventToCoctel() {
-  const liElementsCoctel = document.querySelectorAll('.js-brewCoctel');
-  for (const li of liElementsCoctel) {
-    li.addEventListener('click', handleClickli);
-  }
+
+
+function handleClickLemon (event){
+  event.preventDefault();
+  const idSelected = event.currentTarget.id;
+  const indexCoctel = listArrayFavorite.findIndex(
+    (coctel) => coctel.idDrink === idSelected
+  );
+  listArrayFavorite.splice(indexCoctel, 1);
+  renderFavoriteList(listArrayFavorite);
 }
 
 //vaciar los favoritos con botón reset
@@ -145,12 +153,20 @@ function handleClickReset(event) {
 }
 
 //eliminar dando al click X
-function handleClickX (event){
-  event.preventDefault ();
-
-
+function addEventToCoctel() {
+  const liElementsCoctel = document.querySelectorAll('.js-brewCoctel');
+  for (const li of liElementsCoctel) {
+    li.addEventListener('click', handleClickli);
+  }
 }
+
+function removeToFavorite() {
+  const iconLemon = document.querySelectorAll('.js-fa-regular');
+  for (const icon of iconLemon) {
+    icon.addEventListener('click', handleClickLemon);
+  }
+}
+
 //evento búsqueda (botón)
 btn.addEventListener('click', handleClickSearch);
 reset.addEventListener('click', handleClickReset);
-btnX.addEventListener('click', handleClickX);
