@@ -6,6 +6,8 @@ const btn = document.querySelector('.js-btn');
 const reset = document.querySelector('.js-reset');
 const listMenu = document.querySelector('.js-list');
 const favorite = document.querySelector('.js-favorite');
+const btnX = document.querySelector('.js-btnX');
+
 
 //creo const url para que sea más manejable
 let url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita';
@@ -36,16 +38,27 @@ function renderCoctelList(listArrayCoctel) {
   listMenu.innerHTML = '';
   for (const coctel of listArrayCoctel) {
     listMenu.innerHTML += renderCoctel(coctel);
+
+    }
+    addEventToCoctel();
   }
-  addEventToCoctel();
-}
+
 
 //Pinta todos los elementos favoritos de la lista, uso la contante de ul-favorite
 function renderFavoriteList(listArrayFavorite) {
   favorite.innerHTML = '';
   for (const coctel of listArrayFavorite) {
-    favorite.innerHTML += renderCoctel(coctel);
+    favorite.innerHTML += `<li class= "li-coctel"> 
+<section>
+<article class="brewCoctel js-brewCoctel" id="${coctel.idDrink}">
+<h3 class="coctel_title">${coctel.strDrink}<i class="fa-regular fa-lemon"></i></h3>
+<img src ="${coctel.strDrinkThumb}" alt="foto de cóctel">
+</article>
+</section>
+<input type="button" class=" btnX js-btnX" value="X">
+</li>`;
   }
+
   localStorage.setItem('drinks', JSON.stringify(listArrayFavorite));
 }
 
@@ -55,15 +68,13 @@ function renderFavoriteList(listArrayFavorite) {
 function renderCoctel(coctel) {
   let html = `<li class= "li-coctel"> 
 <section>
-
 <article class="brewCoctel js-brewCoctel" id="${coctel.idDrink}">
 <h3 class="coctel_title">${coctel.strDrink}</h3>
 <img src ="${coctel.strDrinkThumb}" alt="foto de cóctel">
 </article>
 </section>
-<input  type="button" class=" btnX js-btnX" value="X"
+<input hidden type="button" class=" btnX js-btnX" value="X">
 </li>`;
-
 
   return html;
 }
@@ -134,7 +145,12 @@ function handleClickReset(event) {
 }
 
 //eliminar dando al click X
+function handleClickX (event){
+  event.preventDefault ();
 
+
+}
 //evento búsqueda (botón)
 btn.addEventListener('click', handleClickSearch);
 reset.addEventListener('click', handleClickReset);
+btnX.addEventListener('click', handleClickX);
