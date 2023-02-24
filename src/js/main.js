@@ -14,6 +14,11 @@ let url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita';
 let listArrayCoctel =[];
 let listArrayFavorite =[];
 
+const coctelListFavorites = JSON.parse (localStorage.getItem ('drinks'));
+if (coctelListFavorites) {
+  listArrayFavorite=coctelListFavorites;
+  renderFavoriteList (listArrayFavorite);
+}
 
 //"drink"sacado del api que es un array de objetos
 fetch (url)
@@ -44,6 +49,7 @@ function renderFavoriteList(listArrayFavorite) {
   }
   localStorage.setItem('drinks', JSON.stringify(listArrayFavorite));
 }
+
 
 //pintar el listado para que traiga de vuelta las margaritas, en ul-list
 //variable coctel del for
@@ -112,5 +118,14 @@ function addEventToCoctel() {
   }
 }
 
+//vaciar los favoritos con botón reset
+function handleClickReset (event){
+  event.preventDefault ();
+  drink.value='';
+  favorite.innerHTML ='';
+  localStorage.removeItem ('drinks');
+}
+
 //evento búsqueda (botón)
 btn.addEventListener ('click', handleClickSearch);
+reset.addEventListener ('click', handleClickReset);
