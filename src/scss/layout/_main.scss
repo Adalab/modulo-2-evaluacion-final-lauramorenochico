@@ -4,7 +4,20 @@
    justify-content: space-around;
 }
 .selected {
-    background-color: darkcyan;
+    background-color:yellowgreen;
     color: white;
     margin: 10px;
 }
+.li-coctel{
+display: flex;
+flex-direction: row;
+}
+.btnX {
+    height: 50px;
+    width: 50px;
+    margin: 18px;
+    color: yellowgreen;
+    font-size: 40px;
+   
+}
+
