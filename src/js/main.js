@@ -1,40 +1,37 @@
 'use strict';
-//llamar las constantes del HTML que voy a usar
 
+//llamar las constantes del HTML que voy a usar
 const drink = document.querySelector('.js-drink');
 const btn = document.querySelector('.js-btn');
 const reset = document.querySelector('.js-reset');
 const listMenu = document.querySelector('.js-list');
 const favorite = document.querySelector('.js-favorite');
-const btnX = document.querySelector('.js-btnX');
-
 
 
 //creo const url para que sea más manejable
 let url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita';
 
-//necesitamos un listado para meter los cócteles y los favoritos, así que creo un array vacío
+//listado para meter los cócteles y los favoritos
 let listArrayCoctel = [];
 let listArrayFavorite = [];
 
+//7. guardar en el LocalS los favoritos, línea 60 se mandan los favoritos
 const coctelListFavorites = JSON.parse(localStorage.getItem('drinks'));
 if (coctelListFavorites) {
   listArrayFavorite = coctelListFavorites;
   renderFavoriteList(listArrayFavorite);
 }
 
-//"drink"sacado del api que es un array de objetos
-
+//2. hacer FETCH para atender la petición del botón.
 fetch(url)
   .then((response) => response.json())
   .then((data) => {
     console.log(data);
-    //muestra un array llamado "drink" de 6
     listArrayCoctel = data.drinks;
     renderCoctelList(listArrayCoctel); //dentro del fetch porque hasta que no se ejecute el "then" está vacío= pintate luego que tengas los datos
   });
 
-//renderCoctelList- recorre la lista y va seleccionando los obj
+//3.renderCoctelList-recorre la lista y va seleccionando los obj
 function renderCoctelList(listArrayCoctel) {
   listMenu.innerHTML = '';
   for (const coctel of listArrayCoctel) {
@@ -44,8 +41,7 @@ function renderCoctelList(listArrayCoctel) {
   addEventToCoctel();
 }
 
-
-//Pinta todos los elementos favoritos de la lista, uso la contante de ul-favorite
+//6.Pinta todos los elementos favoritos de la lista, uso la contante de ul-favorite
 function renderFavoriteList(listArrayFavorite) {
   favorite.innerHTML = '';
   for (const coctel of listArrayFavorite) {
@@ -58,15 +54,14 @@ function renderFavoriteList(listArrayFavorite) {
 </section>
 </li>`;
   }
-
   removeToFavorite();
+  //7.guardar en el LocalS los favoritos.
   localStorage.setItem('drinks', JSON.stringify(listArrayFavorite));
 }
 
 
-//pintar el listado para que traiga de vuelta las margaritas, en ul-list
-//variable coctel del for
-
+//4.pintar el listado para que traiga de vuelta las margaritas, en ul-list
+//variable 'coctel' del for
 function renderCoctel(coctel) {
   let html = `<li class= "li-coctel"> 
 <section>
@@ -75,13 +70,11 @@ function renderCoctel(coctel) {
 <img class="imgcoctel" src ="${coctel.strDrinkThumb}" alt="foto de cóctel">
 </article>
 </section>
-
 </li>`;
-
   return html;
 }
 
-//necesitamos otro fetch para buscar el resto de cócteles
+//5.necesitamos otro fetch para buscar el resto de cócteles
 function handleClickSearch(ev) {
   ev.preventDefault();
   url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink.value}`;
@@ -95,44 +88,26 @@ function handleClickSearch(ev) {
     });
 }
 
-//addEventListener del li
+//9.función de addEventListener de li, saber si está ya en la lista o no.
 function handleClickli(event) {
   console.log(event.currentTarget.id);
-
-  //Buscar con ese id en el listado de cocteles que coctel tiene el id del curren target, lo hacemos con un find (devuelve el objeto)
   const idSelected = event.currentTarget.id;
-
-  //find : devuelve el primer elemento que cumpla una condición // const de for =coctel
   const selectedCoctel = listArrayCoctel.find(
-    (coctel) => coctel.idDrink === idSelected
-  );
-
-  //findeIndex: devuelve la posición del array, o -1 sino está en el listado. Uso la constante vacía que cree
+    (coctel) => coctel.idDrink === idSelected);
   const indexCoctel = listArrayFavorite.findIndex(
-    (coctel) => coctel.idDrink === idSelected
-  );
+    (coctel) => coctel.idDrink === idSelected);
   console.log(indexCoctel);
-
-  //Comprobar si ya existe el favorito
   if (indexCoctel === -1) {
     event.currentTarget.classList.add('selected');
-    //no está en el listado de favoritos
-    //La guardo en el listado de favoritos: push
     listArrayFavorite.push(selectedCoctel);
-    //event.currentTarget.classList.add('title-drink');
   } else {
     event.currentTarget.classList.remove('selected');
-    //si está en el listado de favoritos eliminarlo
-    //splice: elimina un elemento a partir de una posición
     listArrayFavorite.splice(indexCoctel, 1);
   }
-  //Pintar en el listado HTML de favoritos:
   renderFavoriteList(listArrayFavorite);
 }
 
-//funcion dentro evento: para seleccionar un li saber a qué paleta estoy haciendo click
-
-
+//11.función de addEventListener del icono
 function handleClickLemon (event){
   event.preventDefault();
   const idSelected = event.currentTarget.id;
@@ -143,7 +118,7 @@ function handleClickLemon (event){
   renderFavoriteList(listArrayFavorite);
 }
 
-//vaciar los favoritos con botón reset
+//13.vaciar los favoritos y resfrecar página con botón reset
 function handleClickReset(event) {
   event.preventDefault();
   drink.value = '';
@@ -152,14 +127,14 @@ function handleClickReset(event) {
   location.reload();
 }
 
-//eliminar dando al click X
+//8. evento dentro de función,añadir favorito haciendo click sobre él.
 function addEventToCoctel() {
   const liElementsCoctel = document.querySelectorAll('.js-brewCoctel');
   for (const li of liElementsCoctel) {
     li.addEventListener('click', handleClickli);
   }
 }
-
+//10. evento dentro de función; eliminar de favoritos usando el icono.
 function removeToFavorite() {
   const iconLemon = document.querySelectorAll('.js-fa-regular');
   for (const icon of iconLemon) {
@@ -167,6 +142,8 @@ function removeToFavorite() {
   }
 }
 
-//evento búsqueda (botón)
+//1.evento búsqueda (botón)
 btn.addEventListener('click', handleClickSearch);
+
+//12.evento reset (botón)
 reset.addEventListener('click', handleClickReset);
