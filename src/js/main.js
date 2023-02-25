@@ -36,20 +36,26 @@ function renderCoctelList(listArrayCoctel) {
   listMenu.innerHTML = '';
   for (const coctel of listArrayCoctel) {
     listMenu.innerHTML += renderCoctel(coctel);
-
   }
   addEventToCoctel();
+  removeAddSelected ();
 }
 
 //6.Pinta todos los elementos favoritos de la lista, uso la contante de ul-favorite
 function renderFavoriteList(listArrayFavorite) {
   favorite.innerHTML = '';
   for (const coctel of listArrayFavorite) {
+    let imgCoctel = '';
+    if (!coctel.strDrinkThumb) {
+      imgCoctel =`https://via.placeholder.com/400x600/ffffff/001799.png?text=Cóctel ${coctel.strDrink}`;
+    } else {imgCoctel = coctel.strDrinkThumb;
+    }
+
     favorite.innerHTML += `<li class= "li-coctel"> 
 <section>
-<article class="brewCoctel js-brewCoctel" id="${coctel.idDrink}">
+<article class="brewCoctel js-fav-brewCoctel" id="${coctel.idDrink}">
 <h3 class="coctel_title">${coctel.strDrink}<i class="fa-regular js-fa-regular fa-lemon" id=${coctel.idDrink}></i></h3>
-<img class="imgcoctel" src ="${coctel.strDrinkThumb}" alt="foto de cóctel">
+<img class="imgcoctel" src ="${imgCoctel}" alt="foto de cóctel">
 </article>
 </section>
 </li>`;
@@ -63,16 +69,23 @@ function renderFavoriteList(listArrayFavorite) {
 //4.pintar el listado para que traiga de vuelta las margaritas, en ul-list
 //variable 'coctel' del for
 function renderCoctel(coctel) {
+  let imgCoctel = '';
+  if (!coctel.strDrinkThumb) {
+    imgCoctel =`https://via.placeholder.com/400x600/ffffff/001799.png?text=Cóctel ${coctel.strDrink}`;
+  } else {imgCoctel = coctel.strDrinkThumb;
+  }
+
   let html = `<li class= "li-coctel"> 
 <section>
 <article class="brewCoctel js-brewCoctel" id="${coctel.idDrink}">
 <h3 class="coctel_title">${coctel.strDrink}</h3>
-<img class="imgcoctel" src ="${coctel.strDrinkThumb}" alt="foto de cóctel">
+<img class="imgcoctel" src ="${imgCoctel}" alt="foto de cóctel">
 </article>
 </section>
 </li>`;
   return html;
 }
+
 
 //5.necesitamos otro fetch para buscar el resto de cócteles
 function handleClickSearch(ev) {
@@ -116,6 +129,7 @@ function handleClickLemon (event){
   );
   listArrayFavorite.splice(indexCoctel, 1);
   renderFavoriteList(listArrayFavorite);
+  removeAddSelected ();
 }
 
 //13.vaciar los favoritos y resfrecar página con botón reset
@@ -139,6 +153,20 @@ function removeToFavorite() {
   const iconLemon = document.querySelectorAll('.js-fa-regular');
   for (const icon of iconLemon) {
     icon.addEventListener('click', handleClickLemon);
+  }
+}
+
+//14.quitar/añadir la selección de la lista de favoritos, sobre li
+function removeAddSelected (){
+  const brewList =document.querySelectorAll ('.js-brewCoctel');
+  for (let remSel of brewList) {
+    const checkCoctel = listArrayFavorite.find(
+      (item) => item.idDrink === remSel.id); //item.idDrink=objeto y remSel es id (es como un dni) porque lo cojo de HTML.
+    if (checkCoctel) {
+      remSel.classList.add('selected');
+    } else {
+      remSel.classList.remove('selected');
+    }
   }
 }
 
