@@ -1,8 +1,8 @@
-# Cocktail finder
+# Cocktail finder :tropical_drink:
 
 Module 2 - final evaluation.
 
-## Authors
+## Authors <img src="images.png" alt="Avatar" class="avatar">
 
 - [@lauramorenochico] https://github.com/lauramorenochico
 
@@ -35,6 +35,7 @@ Bonus:
 www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita
 
 ## Tech Stack
+
 HTML
 CSS
 JAVASCRIPT
@@ -48,4 +49,3 @@ Adalab Web Starter Kit.
 
 https://www.freepik.com/font/mishega
 https://readme.so/es
-```
