@@ -1,23 +1,26 @@
 <main >
   <div class="container">
-  <h2 class="slogan">Time to drink!</h2>
-  <h2 class="search-title">Buscador de cócteles</h2>
-  <form>
-    <input type="text" placeholder="busca tu cóctel" class="drink js-drink" value="">
-    <input type="button" class="btn js-btn" value="Buscar">
-    <input type="button" class="reset js-reset" value="Reset">
+  <h2 class="container__slogan">Time to drink!</h2>
+  <h2 class="container__search">Buscador de cócteles</h2>
+ 
+ 
+  <form class="inputs">
+    <input type="text" placeholder="busca tu cóctel" class="inputs__drink js-drink" value="">
+    <input type="button" class="inputs__btn js-btn" value="Buscar">
+    <input type="button" class="inputs__reset js-reset" value="Reset">
   </form>
+    
   </div>
+
   <section class="section">
+  <div class="section__list">
+  <h2 class="section__title">Lista de cócteles <i class="fa-solid fa-martini-glass-citrus"></i></h2>
+  <ul class="section__coctel js-list"></ul>
+  </div>
     
-    <div>
-    <h2>lista de cócteles</h2>
-    <ul class="js-list"></ul>
-    </div>
-    
-  <div>
-  <h2>Cócteles favoritos</h2>
-  <ul class="js-favorite"></ul>
+  <div class="section__list">
+  <h2 class="section__title">Cócteles favoritos <i class="fa-solid fa-star"></i></h2>
+  <ul class="section__favorite js-favorite"></ul>
   </div>
 
   </section>
