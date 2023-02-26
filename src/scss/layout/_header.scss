@@ -1,20 +1,17 @@
 
 .header-container {
-background-color:#252525;
+background-color:$background;
 width: 100vw;
 background-size: cover;
 display: flex;
 justify-content: center;
-border-bottom: solid 4px#ddc588;
+border-bottom: solid 4px$gold;
 font-family: 'Big Shoulders Inline Text', cursive;
 
 }
-.palm {
-color: #ddc588;
-}
 
 .title{
-color:#ddc588;
+color:$gold;
 font-size: 200px;
 }
 

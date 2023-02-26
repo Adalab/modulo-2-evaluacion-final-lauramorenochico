@@ -1,6 +1,6 @@
 .footer {
     height: 100px;
-    background-color: #ddc588;
+    background-color: $gold;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -13,10 +13,10 @@
   }
 &__cheers{
     font-size: 4.4rem;
-    color: #252525;
+    color: $background;
     font-family: 'Dancing Script', cursive;
 }
 .fa-regular {
-    color:#252525;
+    color:$background;
 }
 }
