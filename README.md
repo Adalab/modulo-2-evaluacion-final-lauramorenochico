@@ -2,7 +2,7 @@
 
 Module 2 - final evaluation.
 
-## Authors <img src="images.png" alt="Avatar" class="avatar">
+## Authors :woman:
 
 - [@lauramorenochico] https://github.com/lauramorenochico
 
@@ -30,11 +30,11 @@ Bonus:
 . Model in ccs.
 ```
 
-## API Reference
+## API Reference :calling:
 
 www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita
 
-## Tech Stack
+## Tech Stack :keyboard:
 
 HTML
 CSS
@@ -45,7 +45,7 @@ Text editor interface: Visual Studio Code.
 
 Adalab Web Starter Kit.
 
-## Documentation
+## Documentation :open_book:
 
 https://www.freepik.com/font/mishega
 https://readme.so/es
