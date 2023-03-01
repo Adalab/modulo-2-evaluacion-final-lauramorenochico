@@ -74,15 +74,22 @@ function renderCoctel(coctel) {
     imgCoctel =`https://via.placeholder.com/400x600/ffffff/001799.png?text=Cóctel ${coctel.strDrink}`;
   } else {imgCoctel = coctel.strDrinkThumb;
   }
-
+  let messageText ='';
+ if (coctel.strTags === 'Fruity') {
+    messageText = 'sabor afrutado';
+  } else {
+   messageText = 'No contiene frutas';
+  }
   let html = `<li class= "li-coctel"> 
 <section>
 <article class="brewCoctel js-brewCoctel" id="${coctel.idDrink}">
 <h3 class="coctel_title">${coctel.strDrink}</h3>
+<p>${messageText}</p>
 <img class="imgcoctel" src ="${imgCoctel}" alt="foto de cóctel">
 </article>
 </section>
 </li>`;
+
   return html;
 }
 
@@ -109,14 +116,14 @@ function handleClickli(event) {
     (coctel) => coctel.idDrink === idSelected);
   const indexCoctel = listArrayFavorite.findIndex(
     (coctel) => coctel.idDrink === idSelected);
-  console.log(indexCoctel);
-  if (indexCoctel === -1) {
+  console.log(selectedCoctel.strDrink);
+  /*if (indexCoctel === -1) {
     event.currentTarget.classList.add('selected');
     listArrayFavorite.push(selectedCoctel);
   } else {
     event.currentTarget.classList.remove('selected');
     listArrayFavorite.splice(indexCoctel, 1);
-  }
+  }*/
   renderFavoriteList(listArrayFavorite);
 }
 
